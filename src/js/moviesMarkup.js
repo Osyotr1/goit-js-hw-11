@@ -2,7 +2,8 @@ export { moviesMarkup };
 
 function moviesMarkup(movies) {
     return movies.map(movie =>
-                `<div class="photo-card">
+                `<a class="gallery__link" href="${movie.largeImageURL}">
+                <div class="photo-card">
                 <img src="${movie.webformatURL}" alt="${movie.tags}" loading="lazy" />
                     <div class="info">
                     <p class="info-item">
@@ -18,6 +19,7 @@ function moviesMarkup(movies) {
                         <b>Downloads:${movie.downloads}</b>
                     </p>
                     </div>
-                </div>`
+                </div>
+                </a>`
     ).join('');
 }
