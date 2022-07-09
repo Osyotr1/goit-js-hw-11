@@ -10,7 +10,7 @@ const input = document.querySelector('input')
 const gallery = document.querySelector('.gallery');
 const loadMore = document.querySelector('.load-more');
 
-
+let lightBox;
 let queryImg = '';
 let page = 1;
 const perPage = 40;
@@ -18,7 +18,7 @@ const perPage = 40;
 
 form.addEventListener('submit', onFetch)
 loadMore.addEventListener('click', onLoad);
-let lightBox = new SimpleLightbox('.gallery a')
+
 
 
 function onFetch(event) {
@@ -38,7 +38,7 @@ function onFetch(event) {
         } else {
             console.log(data.totalHits)
             gallery.insertAdjacentHTML('beforeend', moviesMarkup(data.hits))
-            lightBox.refresh();
+            lightBox = new SimpleLightbox('.gallery a').refresh();
             if (data.totalHits > perPage) {
                 loadMore.classList.remove('is-hidden');
             }
@@ -52,13 +52,12 @@ function onFetch(event) {
 
 function onLoad() {
     page += 1;
-    lightBox.destroy();
     fetchPics(queryImg, page, perPage).then(({data}) => {
         gallery.insertAdjacentHTML('beforeend', moviesMarkup(data.hits))
         if (page * 40 > data.totalHits) {
             loadMore.classList.add('is-hidden');
             Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
-            lightBox.refresh();
+            lightBox = new SimpleLightbox('.gallery a').refresh();
         }
     })
     .catch(error => console.log(error))
