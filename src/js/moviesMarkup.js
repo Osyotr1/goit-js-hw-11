@@ -7,16 +7,16 @@ function moviesMarkup(movies) {
                 <img src="${movie.webformatURL}" alt="${movie.tags}" loading="lazy" />
                     <div class="info">
                     <p class="info-item">
-                        <b>Likes:${movie.likes}</b>
+                        <b><span class="under-text">Likes:</span> ${movie.likes}</b>
                     </p>
                     <p class="info-item">
-                        <b>Views:${movie.views}</b>
+                        <b><span class="under-text">Views:</span> ${movie.views}</b>
                     </p>
                     <p class="info-item">
-                        <b>Comments:${movie.comments}</b>
+                        <b><span class="under-text">Comments:</span> ${movie.comments}</b>
                     </p>
                     <p class="info-item">
-                        <b>Downloads:${movie.downloads}</b>
+                        <b><span class="under-text">Downloads:</span> ${movie.downloads}</b>
                     </p>
                     </div>
                 </div>
