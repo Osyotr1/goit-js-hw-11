@@ -30,8 +30,7 @@ function onFetch(event) {
         return;
     }
 
-    fetchPics(queryImg, page, perPage).then(response => {
-        const data = response.data
+    fetchPics(queryImg, page, perPage).then(({data}) => {
         if (data.totalHits === 0) {
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
         } else {
@@ -50,8 +49,7 @@ function onFetch(event) {
 
 function onLoad() {
     page += 1;
-    fetchPics(queryImg, page, perPage).then(response => {
-        const data = response.data
+    fetchPics(queryImg, page, perPage).then(({data}) => {
         gallery.insertAdjacentHTML('beforeend', moviesMarkup(data.hits))
         if (page * 40 > data.totalHits) {
             loadMore.classList.add('is-hidden');
