@@ -18,6 +18,8 @@ const perPage = 40;
 
 form.addEventListener('submit', onFetch)
 loadMore.addEventListener('click', onLoad);
+const lightBox = new SimpleLightbox('.gallery a')
+
 
 function onFetch(event) {
     event.preventDefault();
@@ -34,8 +36,9 @@ function onFetch(event) {
         if (data.totalHits === 0) {
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
         } else {
+            console.log(data.totalHits)
             gallery.insertAdjacentHTML('beforeend', moviesMarkup(data.hits))
-            simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+            lightBox.refresh();
             if (data.totalHits > perPage) {
                 loadMore.classList.remove('is-hidden');
             }
@@ -49,13 +52,12 @@ function onFetch(event) {
 
 function onLoad() {
     page += 1;
-    simpleLightBox.destroy();
     fetchPics(queryImg, page, perPage).then(({data}) => {
         gallery.insertAdjacentHTML('beforeend', moviesMarkup(data.hits))
         if (page * 40 > data.totalHits) {
             loadMore.classList.add('is-hidden');
             Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
-            simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+            lightBox.refresh();
         }
     })
     .catch(error => console.log(error))
