@@ -18,7 +18,7 @@ const perPage = 40;
 
 form.addEventListener('submit', onFetch)
 loadMore.addEventListener('click', onLoad);
-const lightBox = new SimpleLightbox('.gallery a')
+let lightBox = new SimpleLightbox('.gallery a')
 
 
 function onFetch(event) {
