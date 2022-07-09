@@ -24,17 +24,20 @@ function onFetch(event) {
     queryImg = input.value.trim();
     gallery.innerHTML = '';
     loadMore.classList.add('is-hidden');
+
     if (queryImg === '') {
         Notiflix.Notify.failure('The search string cannot be empty. Please specify your search query.');
         return;
     }
+
     fetchPics(queryImg, page, perPage).then(response => {
-        if (response.data.totalHits === 0) {
+        const data = response.data
+        if (data.totalHits === 0) {
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
         } else {
-            gallery.insertAdjacentHTML('beforeend', moviesMarkup(response.data.hits))
+            gallery.insertAdjacentHTML('beforeend', moviesMarkup(data.hits))
             simpleLightBox = new SimpleLightbox('.gallery a').refresh();
-            if (response.data.totalHits > perPage) {
+            if (data.totalHits > perPage) {
                 loadMore.classList.remove('is-hidden');
             }
         }
@@ -48,8 +51,9 @@ function onFetch(event) {
 function onLoad() {
     page += 1;
     fetchPics(queryImg, page, perPage).then(response => {
-        gallery.insertAdjacentHTML('beforeend', moviesMarkup(response.data.hits))
-        if (page * 40 > response.data.totalHits) {
+        const data = response.data
+        gallery.insertAdjacentHTML('beforeend', moviesMarkup(data.hits))
+        if (page * 40 > data.totalHits) {
             loadMore.classList.add('is-hidden');
             Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
             simpleLightBox = new SimpleLightbox('.gallery a').refresh();
