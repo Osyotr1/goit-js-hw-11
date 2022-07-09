@@ -52,6 +52,7 @@ function onFetch(event) {
 
 function onLoad() {
     page += 1;
+    lightBox.destroy();
     fetchPics(queryImg, page, perPage).then(({data}) => {
         gallery.insertAdjacentHTML('beforeend', moviesMarkup(data.hits))
         if (page * 40 > data.totalHits) {
